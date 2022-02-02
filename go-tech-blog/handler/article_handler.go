@@ -16,7 +16,7 @@ func ArticleIndex(c echo.Context) error {
 	// 記事データの一覧を取得する
 	articles, err := repository.ArticleList()
 	if err != nil {
-		log.Println(err.Error())
+		log.Println(err)
 		return c.NoContent(http.StatusInternalServerError)
 	}
 

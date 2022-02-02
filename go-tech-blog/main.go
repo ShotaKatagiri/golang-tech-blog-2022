@@ -10,34 +10,10 @@ import (
 )
 
 type articles struct {
-	Id      int    `json:id`
-	Article string `json:article`
-	A       int    `json:a`
-	V       int    `json:v`
-}
-
-func gormConnect() *gorm.DB {
-
-	DBMS := "mysql"
-	USER := "root"
-	PASS := ""
-	PROTOCOL := "tcp(127.0.0.1:3306)"
-	DBNAME := "golang"
-
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
-	db, err := gorm.Open(DBMS, CONNECT)
-
-	if err != nil {
-		panic(err.Error())
-	}
-
-	//var users []articles
-	//db.Find(&users)
-	//defer db.Close()
-	//
-	//fmt.Print(users)
-
-	return db
+	ID      uint `gorm:"primary_key"`
+	Article string
+	A       int
+	V       int
 }
 
 var e = createMux()
@@ -45,7 +21,6 @@ var e = createMux()
 func main() {
 	db := gormConnect()
 	repository.SetDB(db)
-
 	// 構造体のインスタンス化
 	//articleEx := article{}
 	//articleEx.Id = 0
@@ -77,4 +52,22 @@ func createMux() *echo.Echo {
 	e.Static("/css", "src/css")
 	e.Static("/js", "src/js")
 	return e
+}
+
+func gormConnect() *gorm.DB {
+
+	DBMS := "mysql"
+	USER := "root"
+	PASS := ""
+	PROTOCOL := "tcp(127.0.0.1:3306)"
+	DBNAME := "golang"
+
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+	db, err := gorm.Open(DBMS, CONNECT)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return db
 }
