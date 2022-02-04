@@ -2,6 +2,6 @@ package model
 
 // Article ...
 type Article struct {
-	ID      int    `db:"id"`
-	Article string `db:"article"`
+	ID    int    `db:"id"`
+	Title string `db:"title"`
 }
